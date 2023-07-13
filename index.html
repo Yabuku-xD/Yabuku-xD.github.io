@@ -8,7 +8,6 @@
     <title>Yabuku</title>
   </head>
   <body class="bg-[#1c1917]">
-    <div id="glow"></div>
     <div class="flex flex-row w-3/12 ml-20 mt-4 absolute">
       <img
         class="rounded-3xl select-none"
@@ -41,21 +40,6 @@
     </div>
     <canvas id="canvas" class="flex flex-row w-1/2"></canvas>
     <script>
-      document.addEventListener('mousemove', function (event) {
-        var glow = document.querySelector('#glow');
-        var mouseX = event.pageX;
-        var mouseY = event.pageY;
-
-        glow.style.opacity = 1;
-        glow.style.left = (mouseX - glow.offsetWidth / 2) + 'px';
-        glow.style.top = (mouseY - glow.offsetHeight / 2) + 'px';
-    });
-
-    document.addEventListener('mouseout', function () {
-        var glow = document.querySelector('#glow');
-        glow.style.opacity = 0;
-    });
-
       var canvas = document.getElementById("canvas");
       var context = canvas.getContext("2d");
 
