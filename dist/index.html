@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="output.css" rel="stylesheet" />
+    <title>Yabuku</title>
+  </head>
+  <body class="bg-[#1c1917]">
+    <div id="glow"></div>
+    <div class="flex flex-row w-3/12 ml-20 mt-4 absolute">
+      <img
+        class="rounded-3xl select-none"
+        src="/portfolio/dist/assets/Gintama.jpeg"
+        alt="Mine"
+      />
+    </div>
+    <div class="flex flex-col text-end select-none">
+      <h1 class="text-white uppercase text-9xl">Shyamalan</h1>
+      <h1 class="text-white uppercase text-9xl mr-96">Kannan</h1>
+      <div class="text-white select-none mr-20">
+        <p>Full-Stack Developer.</p>
+        <p>Machine Learning Engineer.</p>
+        <p>UI/UX Designer.</p>
+        <p>Video Editor.</p>
+      </div>
+    </div>
+    <div id="navbar" class="flex flex-col absolute text-6xl ml-96 select-none">
+      <a href="about.html" class="text-white hover:underline underline-offset-2"
+        >About</a
+      >
+      <a href="https://github.com/Yabuku-xD" class="text-white hover:underline"
+        >Projects</a
+      >
+      <a
+        href="contact.html"
+        class="text-white hover:underline underline-offset-2"
+        >Contact</a
+      >
+    </div>
+    <canvas id="canvas" class="flex flex-row w-1/2"></canvas>
+    <script>
+      document.addEventListener('mousemove', function (event) {
+        var glow = document.querySelector('#glow');
+        var mouseX = event.pageX;
+        var mouseY = event.pageY;
+
+        glow.style.opacity = 1;
+        glow.style.left = (mouseX - glow.offsetWidth / 2) + 'px';
+        glow.style.top = (mouseY - glow.offsetHeight / 2) + 'px';
+    });
+
+    document.addEventListener('mouseout', function () {
+        var glow = document.querySelector('#glow');
+        glow.style.opacity = 0;
+    });
+
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var width = canvas.width;
+      var height = canvas.height;
+
+      function Particle(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() * 2 - 1) * 0.5;
+        this.vy = (Math.random() * 2 - 1) * 0.5;
+        this.radius = Math.random() * 10 + 2;
+        this.color = "white";
+      }
+
+      var particles = [];
+      for (var i = 0; i < 100; i++) {
+        particles.push(
+          new Particle(Math.random() * width, Math.random() * height)
+        );
+      }
+
+      function drawParticle(p) {
+        context.beginPath();
+        context.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        context.closePath();
+        context.fillStyle = p.color;
+        context.fill();
+      }
+
+      function drawLine(p1, p2) {
+        context.beginPath();
+        context.moveTo(p1.x, p1.y);
+        context.lineTo(p2.x, p2.y);
+        context.strokeStyle = "white";
+        context.stroke();
+      }
+
+      function animate() {
+        context.clearRect(0, 0, width, height);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) {
+            p.vx = -p.vx;
+          }
+          if (p.y < 0 || p.y > height) {
+            p.vy = -p.vy;
+          }
+          drawParticle(p);
+          for (var j = i + 1; j < particles.length; j++) {
+            var p2 = particles[j];
+            var dx = p.x - p2.x;
+            var dy = p.y - p2.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              drawLine(p, p2);
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      window.addEventListener("resize", function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        width = canvas.width;
+        height = canvas.height;
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          if (p.x > width) {
+            p.x = width;
+          }
+          if (p.y > height) {
+            p.y = height;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

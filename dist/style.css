@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BenchNine&display=swap');
+h1{
+    font-family: 'Libre Baskerville', serif;
+}
+p{
+    font-family: 'Roboto Mono', monospace;
+}
+#navbar{
+    font-family: 'BenchNine', sans-serif;
+}
+#glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white; /* Replace with your desired color */
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
