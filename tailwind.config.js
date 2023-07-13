@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./portfolio/*.{html,js}"],
+  content: ["./Yabuku-xD.github.io/*.{html,js}"],
   theme: {
     extend: {},
   },
